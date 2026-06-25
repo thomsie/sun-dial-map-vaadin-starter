@@ -48,7 +48,6 @@ public class MainView extends AppLayout {
         mapContainer.setSizeFull();
 
         SplitLayout splitLayout = new SplitLayout(mapContainer, scroller);
-        splitLayout.setHeight("100%"        );
         splitLayout.setSizeFull();
         splitLayout.setSplitterPosition(72);
 

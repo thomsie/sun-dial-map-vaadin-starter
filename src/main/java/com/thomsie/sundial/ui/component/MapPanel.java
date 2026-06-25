@@ -1,5 +1,6 @@
 package com.thomsie.sundial.ui.component;
 
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -20,6 +21,13 @@ public class MapPanel extends Composite<Div> {
         getContent().setHeight("100%");
         getContent().getStyle().set("min-height", "600px");
         getContent().getStyle().set("background", "var(--lumo-contrast-5pct)");
+    }
+
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        // Sobald die Komponente im Browser sitzt, rufen wir initMap auf
+        getContent().getElement().executeJs("window.sunDialMap?.initMap($0)", getContent().getId().orElse("map-host"));
     }
 
     public void setCoordinates(double latitude, double longitude) {

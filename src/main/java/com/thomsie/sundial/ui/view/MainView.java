@@ -70,9 +70,23 @@ public class MainView extends AppLayout {
             switch (mode) {
                 case "Moon" -> infoPanel.showMoon(astronomyService.calculateMoonPosition(coordinates, dateTime));
                 case "Clouds" -> infoPanel.showClouds(weatherService.getCloudSummary(coordinates));
-                case "Sun" -> infoPanel.showSun(astronomyService.calculateSunPosition(coordinates, dateTime));
+                case "Sun" -> {
+                    // 1. Position berechnen (das machen Sie bereits)
+                    var sunPosition = astronomyService.calculateSunPosition(coordinates, dateTime);
+                    infoPanel.showSun(sunPosition);
+
+                    // 2. NEU: Holen Sie sich die Winkel (Azimut) aus Ihrem Service/Objekt.
+                    // Passen Sie diese Zeilen an die echten Methoden Ihres sunPosition-Objekts an!
+// HIER KORRIGIERT: Record-Methoden nutzen kein "get"!
+                    double currentAzimuth = sunPosition.azimuth();
+                    double sunriseAzimuth = sunPosition.sunriseAzimuth();
+                    double sunsetAzimuth = sunPosition.sunsetAzimuth();
+                    // 3. Linien auf der Karte zeichnen
+                    mapPanel.updateSunLines(latitude, longitude, sunriseAzimuth, currentAzimuth, sunsetAzimuth);
+                }
                 default -> Notification.show("Unsupported mode: " + mode);
             }
         });
     }
+
 }

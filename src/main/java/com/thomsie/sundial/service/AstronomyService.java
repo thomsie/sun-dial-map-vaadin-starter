@@ -16,8 +16,19 @@ public class AstronomyService {
         double pseudoHour = dateTime.getHour() + (dateTime.getMinute() / 60.0);
         double azimuth = ((pseudoHour / 24.0) * 360.0 + 180.0) % 360.0;
         double elevation = Math.max(-10, 60 - Math.abs(12 - pseudoHour) * 8);
-        return new SunPosition(round(azimuth), round(elevation), dateTime.withHour(6).withMinute(0).format(TIME_FORMAT), dateTime.withHour(20).withMinute(0).format(TIME_FORMAT));
-    }
+
+        double sunriseAzimuth = ((6.0 / 24.0) * 360.0 + 180.0) % 360.0;
+        double sunsetAzimuth = ((20.0 / 24.0) * 360.0 + 180.0) % 360.0;
+
+
+        return new SunPosition(
+                round(azimuth),
+                round(elevation),
+                dateTime.withHour(6).withMinute(0).format(TIME_FORMAT),
+                dateTime.withHour(20).withMinute(0).format(TIME_FORMAT),
+                round(sunriseAzimuth), // NEU
+                round(sunsetAzimuth)   // NEU
+        );   }
 
     public MoonPosition calculateMoonPosition(Coordinates coordinates, LocalDateTime dateTime) {
         double pseudoHour = dateTime.getHour() + (dateTime.getMinute() / 60.0);

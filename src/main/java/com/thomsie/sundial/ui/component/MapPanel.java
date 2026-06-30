@@ -34,4 +34,10 @@ public class MapPanel extends Composite<Div> {
         getContent().getElement().executeJs("window.sunDialMap?.setMarker($0, $1)", latitude, longitude);
         getContent().getElement().executeJs("window.sunDialMap?.setView($0, $1, 7)", latitude, longitude);
     }
+    public void updateSunLines(double latitude, double longitude, double sunriseAzimuth, double currentAzimuth, double sunsetAzimuth) {
+        getContent().getElement().executeJs(
+                "window.sunDialMap?.updateSunLines($0, $1, $2, $3, $4)",
+                latitude, longitude, sunriseAzimuth, currentAzimuth, sunsetAzimuth
+        );
+    }
 }

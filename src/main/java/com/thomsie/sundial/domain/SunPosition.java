@@ -1,3 +1,6 @@
 package com.thomsie.sundial.domain;
 
-public record SunPosition(double azimuth, double elevation, String sunrise, String sunset) {}
+public record SunPosition(double azimuth, double elevation, String sunrise, String sunset, double sunriseAzimuth,
+                          double sunsetAzimuth) {
+}
+
